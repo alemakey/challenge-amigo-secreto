@@ -1,34 +1,26 @@
 // Array para almacenar la lista de amigos.
-let amigos =;
+let amigos = [];
 
 /**
  * Agrega un nuevo amigo a la lista desde el campo de texto.
  */
 function agregarAmigo() {
-    // Obtiene el elemento del input y su valor.
     let inputAmigo = document.getElementById('amigo');
     let nombre = inputAmigo.value.trim();
 
-    // Valida que el campo no esté vacío.
     if (nombre === '') {
         mostrarToast('Por favor, inserte un nombre.', 'error');
         return;
     }
-    
-    // Valida si el nombre ya existe para evitar duplicados.
+
     if (amigos.includes(nombre)) {
         mostrarToast('Ese nombre ya ha sido agregado. Intenta con otro.', 'error');
         inputAmigo.value = '';
         return;
     }
 
-    // Agrega el nuevo nombre al array.
     amigos.push(nombre);
-    
-    // Llama a la función para actualizar la lista en la pantalla.
     actualizarListaAmigos();
-
-    // Limpia el campo de texto y lo vuelve a enfocar.
     inputAmigo.value = '';
     inputAmigo.focus();
 }
@@ -96,31 +88,30 @@ function eliminarAmigo(indice) {
 
     mensajeModal.textContent = `¿Estás seguro de que quieres eliminar a "${nombre}" de la lista?`;
 
-    const cerrarModal = () => {
-        modal.classList.remove('visible');
-        // Importante: Clonar y reemplazar los botones para eliminar los event listeners antiguos
-        btnConfirmar.replaceWith(btnConfirmar.cloneNode(true));
-        btnCancelar.replaceWith(btnCancelar.cloneNode(true));
-    };
+    // Mostrar el modal
+    modal.classList.add('visible');
 
-    modal.style.display = 'flex';
-    setTimeout(() => modal.classList.add('visible'), 10);
+    // Limpiar listeners anteriores
+    btnConfirmar.onclick = null;
+    btnCancelar.onclick = null;
 
-    document.getElementById('modal-btn-confirmar').onclick = () => {
+    btnConfirmar.onclick = () => {
         amigos.splice(indice, 1);
         actualizarListaAmigos();
         if (amigos.length < 2) {
             document.getElementById('resultado').innerHTML = '';
         }
         mostrarToast(`${nombre} ha sido eliminado de la lista.`, 'success');
-        cerrarModal();
+        modal.classList.remove('visible');
     };
 
-    document.getElementById('modal-btn-cancelar').onclick = cerrarModal;
+    btnCancelar.onclick = () => {
+        modal.classList.remove('visible');
+    };
 }
 
 /**
- * Realiza el sorteo y muestra el amigo secreto.
+ * Realiza el sorteo de amigo secreto para todos los participantes.
  */
 function sortearAmigo() {
     if (amigos.length < 2) {
@@ -128,18 +119,55 @@ function sortearAmigo() {
         return;
     }
 
-    const indiceAleatorio = Math.floor(Math.random() * amigos.length);
-    const amigoSecreto = amigos[indiceAleatorio];
+    // Copia y desordena la lista de amigos
+    let asignados = [...amigos];
+    let intentos = 0;
+    let maxIntentos = 100;
 
-    const resultado = document.getElementById('resultado');
-    resultado.innerHTML = `¡El amigo secreto es: <strong>${amigoSecreto}</strong>! 🎉`;
+    // Evitar autoasignaciones
+    do {
+        asignados = shuffle([...amigos]);
+        intentos++;
+    } while (tieneAutoasignacion(amigos, asignados) && intentos < maxIntentos);
+
+    if (intentos === maxIntentos) {
+        mostrarToast('No se pudo realizar el sorteo. Intenta de nuevo.', 'error');
+        return;
+    }
+
+    // Mostrar los resultados
+    let resultadoHTML = '<ul>';
+    amigos.forEach((amigo, i) => {
+        resultadoHTML += `<li><strong>${amigo}</strong> → ${asignados[i]}</li>`;
+    });
+    resultadoHTML += '</ul>';
+
+    document.getElementById('resultado').innerHTML = resultadoHTML;
+}
+
+/**
+ * Desordena un array (Fisher-Yates).
+ */
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+/**
+ * Verifica si hay autoasignaciones.
+ */
+function tieneAutoasignacion(original, asignados) {
+    return original.some((amigo, i) => amigo === asignados[i]);
 }
 
 /**
  * Limpia la lista de amigos y los resultados para empezar de nuevo.
  */
 function reiniciar() {
-    amigos =;
+    amigos = [];
     document.getElementById('listaAmigos').innerHTML = '';
     document.getElementById('resultado').innerHTML = '';
     document.getElementById('amigo').focus();
@@ -148,7 +176,7 @@ function reiniciar() {
 /**
  * Muestra una notificación "toast" no bloqueante.
  * @param {string} mensaje - El mensaje a mostrar.
- * @param {string} tipo - 'success' o 'error' para el estilo.
+ * @param {string} [tipo='success'] - El tipo de toast ('success' o 'error').
  */
 function mostrarToast(mensaje, tipo = 'success') {
     const container = document.getElementById('toast-container');
@@ -157,7 +185,9 @@ function mostrarToast(mensaje, tipo = 'success') {
     toast.textContent = mensaje;
     container.appendChild(toast);
 
+    // La animación CSS se encarga de mostrar y ocultar.
+    // Removemos el elemento del DOM después de que la animación termine.
     setTimeout(() => {
         toast.remove();
-    }, 3000);
+    }, 3000); // 3000ms = 3s
 }
