@@ -1,162 +1,402 @@
+/* =============================================
+   VARIABLES
+   ============================================= */
 :root {
-    --color-primary: #4B69FD;
-    --color-secondary: #FFF9EB;
-    --color-tertiary: #C4C4C4;
-    --color-button: #fe652b;
-    --color-button-hover: #e55720;
-    --color-text: #444444;
-    --color-white: #FFFFFF;
+    --color-primary:       #4B69FD;
+    --color-primary-dark:  #3451d1;
+    --color-secondary:     #FFF9EB;
+    --color-button:        #fe652b;
+    --color-button-hover:  #e55720;
+    --color-reset:         #6b7280;
+    --color-reset-hover:   #4b5563;
+    --color-text:          #444444;
+    --color-text-light:    #6b7280;
+    --color-white:         #FFFFFF;
+    --color-error:         #dc2626;
+    --color-success:       #16a34a;
+    --color-chip-bg:       #e9edff;
+    --color-chip-border:   #4B69FD;
+    --border-radius-md:    8px;
+    --border-radius-pill:  25px;
+    --shadow-sm:           0 2px 6px rgba(0, 0, 0, 0.15);
+    --shadow-md:           0 4px 12px rgba(0, 0, 0, 0.2);
+    --transition:          0.2s ease;
 }
 
-/* Estilos generales */
-* {
+/* =============================================
+   RESET Y BASE
+   ============================================= */
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    height: 100vh;
-    background-color: var(--color-primary);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* Clase utilitaria para texto solo para lectores de pantalla */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
+body {
+    min-height: 100vh;
+    background-color: var(--color-primary);
+    display: flex;
+    flex-direction: column;
+    font-family: "Inter", sans-serif;
+    color: var(--color-text);
+}
+
+/* =============================================
+   LAYOUT PRINCIPAL
+   ============================================= */
 .main-content {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    width: 100%;
+    flex: 1;
 }
 
-/* Banner */
+/* =============================================
+   HEADER / BANNER
+   ============================================= */
 .header-banner {
-    flex: 40%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 0 0;
-}
-
-/* Sección de entrada */
-.input-section {
-    flex: 60%;
-    background-color: var(--color-secondary);
-    border: 1px solid #000;
-    border-radius: 64px 64px 0 0;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 20px;
-    width: 100%;
+    gap: 12px;
+    padding: 32px 16px 16px;
+    text-align: center;
 }
 
-/* Títulos */
+.header-banner img {
+    max-width: 220px;
+    width: 40vw;
+    min-width: 120px;
+    height: auto;
+}
+
+/* =============================================
+   TÍTULOS
+   ============================================= */
 .main-title {
-    font-size: 48px;
+    font-size: clamp(2rem, 8vw, 3rem);
     font-family: "Merriweather", serif;
     font-weight: 900;
     font-style: italic;
     color: var(--color-white);
+    line-height: 1.2;
 }
 
 .section-title {
-    font-family: "Inter", serif;
-    font-size: 36px;
+    font-family: "Inter", sans-serif;
+    font-size: clamp(1.3rem, 4vw, 2rem);
     font-weight: 700;
     color: var(--color-primary);
-    margin: 10px 0;
+    margin-bottom: 8px;
     text-align: center;
 }
 
-/* Contenedores de entrada y botón */
+/* =============================================
+   SECCIÓN DE ENTRADA
+   ============================================= */
+.input-section {
+    flex: 1;
+    background-color: var(--color-secondary);
+    border-radius: 48px 48px 0 0;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 24px 40px;
+    width: 100%;
+}
+
+/* =============================================
+   INPUT + BOTÓN AÑADIR
+   ============================================= */
 .input-wrapper {
     display: flex;
-    justify-content: center;
     width: 100%;
-    max-width: 600px;
-    margin-top: 20px;
+    max-width: 560px;
+    margin-top: 16px;
 }
 
 .input-name {
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #000;
-    border-radius: 25px 0 0 25px;
-    font-size: 16px;
-}
-
-.button-container {
-    width: 300px;
-    justify-content: center;
-}
-
-/* Estilos de entrada de texto */
-.input-title {
     flex: 1;
-    padding: 10px 15px;
-    font-size: 16px;
-    border: 2px solid #333;
+    padding: 12px 18px;
+    border: 2px solid #d1d5db;
     border-right: none;
-    border-radius: 25px 0 0 25px;
-    font-family: "Merriweather", serif;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* Estilos de botón */
-button {
-    padding: 15px 30px;
+    border-radius: var(--border-radius-pill) 0 0 var(--border-radius-pill);
+    font-size: 1rem;
     font-family: "Inter", sans-serif;
-    font-size: 16px;
-    border: 2px solid #000;
-    border-radius: 25px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
+    color: var(--color-text);
+    background-color: var(--color-white);
+    transition: border-color var(--transition), box-shadow var(--transition);
 }
 
+.input-name:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(75, 105, 253, 0.25);
+}
+
+.input-name::placeholder {
+    color: #9ca3af;
+}
+
+/* =============================================
+   BOTONES — BASE
+   ============================================= */
+button {
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: var(--border-radius-pill);
+    transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+button:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+button:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+/* Botón Añadir */
 .button-add {
-    background-color: var(--color-tertiary);
+    padding: 12px 22px;
+    background-color: #d1d5db;
     color: var(--color-text);
-    border-radius: 0 25px 25px 0;
+    border-color: #9ca3af;
+    border-radius: 0 var(--border-radius-pill) var(--border-radius-pill) 0;
+    white-space: nowrap;
+    box-shadow: var(--shadow-sm);
 }
 
 .button-add:hover {
-    background-color: #a1a1a1;
+    background-color: #9ca3af;
+    color: var(--color-white);
+    border-color: #6b7280;
 }
 
-/* Listas */
-ul {
-    list-style-type: none;
-    color: var(--color-text);
-    font-family: "Inter", sans-serif;
-    font-size: 18px;
-    margin: 20px 0;
+/* =============================================
+   MENSAJE DE ERROR INLINE
+   ============================================= */
+.error-msg {
+    min-height: 1.4em;
+    font-size: 0.875rem;
+    color: var(--color-error);
+    font-weight: 600;
+    margin-top: 8px;
+    text-align: center;
+    width: 100%;
+    max-width: 560px;
 }
 
-.result-list {
-    margin-top: 15px;
-    color: #05DF05;
-    font-size: 22px;
-    font-weight: bold;
+/* =============================================
+   LISTA DE PARTICIPANTES
+   ============================================= */
+.name-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    width: 100%;
+    max-width: 560px;
+    margin: 16px 0;
+    min-height: 40px;
+    padding: 4px 0;
+}
+
+.name-list li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--color-chip-bg);
+    border: 1.5px solid var(--color-chip-border);
+    color: var(--color-primary-dark);
+    border-radius: 999px;
+    padding: 6px 14px 6px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    animation: chipIn 0.15s ease;
+}
+
+@keyframes chipIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+.btn-remove {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0 2px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: color var(--transition);
+    font-weight: 900;
+}
+
+.btn-remove:hover {
+    color: var(--color-error);
+}
+
+.btn-remove:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* =============================================
+   RESULTADO DEL SORTEO
+   ============================================= */
+.result-container {
+    width: 100%;
+    max-width: 560px;
+    margin: 8px 0 16px;
     text-align: center;
 }
 
-/* Botón de sortear título */
+.result-container:not(:empty) {
+    background: linear-gradient(135deg, #f0fff4, #dcfce7);
+    border: 1.5px solid #86efac;
+    border-radius: var(--border-radius-md);
+    padding: 16px;
+}
+
+.result-container ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.result-container li {
+    font-size: 1rem;
+    color: var(--color-success);
+    font-weight: 600;
+}
+
+.result-container li span.arrow {
+    color: #4ade80;
+    margin: 0 6px;
+}
+
+.result-title {
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: var(--color-success);
+    margin-bottom: 10px;
+}
+
+/* =============================================
+   BOTONES DE ACCIÓN (SORTEAR / REINICIAR)
+   ============================================= */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 360px;
+    margin-top: 8px;
+}
+
 .button-draw {
     display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 12px;
     width: 100%;
-    padding: 10px 40px;
-    color: var(--color-white);
+    padding: 14px 32px;
     background-color: var(--color-button);
-    font-size: 16px;
+    color: var(--color-white);
+    border-color: rgba(0,0,0,0.15);
+    box-shadow: var(--shadow-md);
 }
 
 .button-draw img {
-    margin-right: 40px;
+    width: 24px;
+    height: 24px;
 }
 
-.button-draw:hover {
+.button-draw:hover:not(:disabled) {
     background-color: var(--color-button-hover);
+}
+
+.button-draw:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.button-reset {
+    width: 100%;
+    padding: 11px 32px;
+    background-color: var(--color-reset);
+    color: var(--color-white);
+    border-color: rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-sm);
+    font-weight: 600;
+}
+
+.button-reset:hover {
+    background-color: var(--color-reset-hover);
+}
+
+/* =============================================
+   FOOTER
+   ============================================= */
+.site-footer {
+    text-align: center;
+    padding: 12px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.65);
+    background-color: var(--color-primary);
+}
+
+/* =============================================
+   RESPONSIVE — MOBILE (≤ 480px)
+   ============================================= */
+@media (max-width: 480px) {
+    .input-section {
+        border-radius: 32px 32px 0 0;
+        padding: 24px 16px 32px;
+    }
+
+    .input-wrapper {
+        flex-direction: column;
+    }
+
+    .input-name {
+        border-right: 2px solid #d1d5db;
+        border-radius: var(--border-radius-pill);
+        border-bottom-left-radius: var(--border-radius-pill);
+        border-bottom-right-radius: var(--border-radius-pill);
+    }
+
+    .button-add {
+        border-radius: var(--border-radius-pill);
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    .button-container {
+        max-width: 100%;
+    }
 }

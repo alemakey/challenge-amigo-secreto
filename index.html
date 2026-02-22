@@ -3,39 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Realiza el sorteo de tu amigo secreto de forma fácil y rápida. Agrega los nombres y deja que la suerte decida.">
+    <title>Amigo Secreto — Sorteo</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700;900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    <title>Amigo Secreto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Merriweather:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <main class="main-content">
         <header class="header-banner">
             <h1 class="main-title">Amigo Secreto</h1>
-            <img src="assets/amigo-secreto.png" alt="Imagen representativa de amigo secreto">
+            <img src="assets/amigo-secreto.png" alt="Ilustración de Amigo Secreto" width="220" height="220">
         </header>
-        
-        <section class="input-section">
-            <h2 class="section-title">Digite el nombre de sus amigos</h2>
-            <div class="input-wrapper">
-                <input type="text" id="amigo" class="input-name" placeholder="Escribe un nombre">
-                <button class="button-add" onclick="agregarAmigo()">Añadir</button>
+
+        <section class="input-section" aria-label="Gestión de participantes">
+            <h2 class="section-title">Ingresa los nombres</h2>
+
+            <div class="input-wrapper" role="group" aria-label="Agregar participante">
+                <label for="amigo" class="sr-only">Nombre del participante</label>
+                <input
+                    type="text"
+                    id="amigo"
+                    class="input-name"
+                    placeholder="Escribe un nombre..."
+                    maxlength="50"
+                    autocomplete="off"
+                    aria-describedby="error-msg"
+                >
+                <button id="btn-agregar" class="button-add" type="button">Añadir</button>
             </div>
-           
-            <ul id="listaAmigos" class="name-list" aria-labelledby="listaAmigos" role="list"></ul>
-            <ul id="resultado" class="result-list" aria-live="polite"></ul>
+
+            <p id="error-msg" class="error-msg" role="alert" aria-live="assertive"></p>
+
+            <ul
+                id="listaAmigos"
+                class="name-list"
+                aria-label="Lista de participantes"
+                role="list"
+            ></ul>
+
+            <div id="resultado" class="result-container" role="status" aria-live="polite" aria-atomic="true"></div>
 
             <div class="button-container">
-                <button class="button-draw" onclick="sortearAmigo()" aria-label="Sortear amigo secreto">
-                    <img src="assets/play_circle_outline.png" alt="Ícono para sortear">
+                <button id="btn-sortear" class="button-draw" type="button" disabled aria-disabled="true">
+                    <img src="assets/play_circle_outline.png" alt="" aria-hidden="true">
                     Sortear amigo
+                </button>
+                <button id="btn-reiniciar" class="button-reset" type="button" aria-label="Reiniciar sorteo y limpiar lista">
+                    Reiniciar
                 </button>
             </div>
         </section>
     </main>
 
-    <script src="app.js" defer></script>
+    <footer class="site-footer">
+        <p>Challenge Amigo Secreto &copy; 2025</p>
+    </footer>
+
+    <script src="app.js"></script>
 </body>
 </html>
