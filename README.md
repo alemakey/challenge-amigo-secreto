@@ -1,5 +1,9 @@
 # 🎁 Challenge Amigo Secreto — Oracle ONE G9
 
+[![Alura Latam](https://img.shields.io/badge/Alura%20Latam-Formación%20ONE-0070f3?style=for-the-badge)](https://www.aluracursos.com/) [![Oracle Next Education](https://img.shields.io/badge/Oracle%20Next%20Education-ONE%20G9-f80000?style=for-the-badge&logo=oracle&logoColor=white)](https://www.oracle.com/mx/education/oracle-next-education/) ![Proyecto educativo](https://img.shields.io/badge/Proyecto-educativo-blue?style=for-the-badge)
+
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+
 🚀 **¡Pruébalo en vivo aquí!** [Demo Amigo Secreto](https://alemakey.github.io/challenge-amigo-secreto/)
 
 > Aplicación web para organizar sorteos de **Amigo Secreto** de forma justa, accesible y segura.  
@@ -22,7 +26,9 @@ Este proyecto fue desarrollado como parte del programa **Oracle ONE G9** en cola
 ## ✨ Mejoras Técnicas Destacadas
 
 ### 🔀 Algoritmo Fisher-Yates — Emparejamiento Justo
+
 En lugar de elegir un ganador al azar, la aplicación implementa el **algoritmo Fisher-Yates** combinado con un bucle de *derangement* (permutación sin puntos fijos). Esto garantiza que:
+
 - Cada participante recibe exactamente un amigo secreto.
 - **Nadie puede sacarse a sí mismo** en ningún sorteo.
 - La distribución es verdaderamente uniforme y aleatoria.
@@ -38,7 +44,9 @@ function generarAsignacionValida(lista) {
 ```
 
 ### ♿ Accesibilidad — Etiquetas Semánticas y ARIA
+
 El HTML fue reescrito siguiendo los estándares **WCAG** para garantizar compatibilidad con lectores de pantalla y navegación por teclado:
+
 - Estructura semántica completa: `<main>`, `<header>`, `<section>`, `<footer>`.
 - `<label class="sr-only">` asociado al campo de texto (visible solo para lectores de pantalla).
 - `role="status"` y `aria-live="polite"` en el área de resultados.
@@ -46,6 +54,7 @@ El HTML fue reescrito siguiendo los estándares **WCAG** para garantizar compati
 - Todos los elementos interactivos mantienen un `focus-visible` con outline de alto contraste.
 
 ### 🛡️ Seguridad — Prevención de XSS
+
 La versión original usaba `innerHTML` para insertar nombres en el DOM, lo cual permite ataques de **Cross-Site Scripting (XSS)**. La versión refactorizada usa exclusivamente `createElement` y `textContent`:
 
 ```javascript
@@ -58,7 +67,9 @@ span.textContent = nombre; // escapa HTML automáticamente
 ```
 
 ### 📱 Diseño Responsive — CSS `clamp()` y Flexbox
+
 El diseño se adapta fluidamente a cualquier tamaño de pantalla sin saltos bruscos:
+
 - **`clamp()`** en títulos: escalan automáticamente entre el tamaño mínimo y máximo según el viewport.
 - **Flexbox** en todos los contenedores para alineación consistente.
 - **`@media (max-width: 480px)`**: el campo de texto y los botones pasan a disposición en columna vertical, optimizados para mobile.
@@ -70,7 +81,9 @@ El diseño se adapta fluidamente a cualquier tamaño de pantalla sin saltos brus
 ```
 
 ### 💬 UX Mejorada — Errores Inline y Tecla Enter
+
 Se eliminaron todos los `alert()` del código original, reemplazándolos por mensajes de error **directamente en la página**, más sutiles y no bloqueantes:
+
 - El mensaje aparece en rojo bajo el campo de texto.
 - Desaparece automáticamente después de 3.5 segundos.
 - El usuario puede agregar participantes presionando **Enter** sin necesidad de hacer clic en el botón.
@@ -83,13 +96,17 @@ Se eliminaron todos los `alert()` del código original, reemplazándolos por men
 No se requiere instalación ni dependencias externas.
 
 1. **Clona el repositorio:**
+
    ```bash
    git clone https://github.com/alemakey/challenge-amigo-secreto.git
    ```
+
 2. **Navega a la carpeta del proyecto:**
+
    ```bash
    cd challenge-amigo-secreto
    ```
+
 3. **Abre `index.html`** en tu navegador web preferido.
 
 ---
